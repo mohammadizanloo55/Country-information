@@ -19,7 +19,8 @@
     "eject": "react-scripts eject",
     "prepare": "husky install",
     "clean": "prettier '**/*' --write .  --ignore-unknown",
-    "lint": "./node_modules/.bin/eslint . --fix"
+    "lint": "./node_modules/.bin/eslint . --fix",
+    "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
   "browserslist": {
     "production": [
