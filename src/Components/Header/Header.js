@@ -47,6 +47,7 @@ const Header = () => {
           sm: "xl",
           md: "x-large",
         }}
+        fontWeight="normal"
         alignItems="center"
         onClick={toggleColorMode}
       >
