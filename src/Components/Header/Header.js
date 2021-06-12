@@ -9,7 +9,7 @@ import { HiMoon, HiOutlineMoon } from "react-icons/hi";
 
 const Header = () => {
   const { toggleColorMode } = useColorMode();
-  const SwitchIcon = useColorModeValue(HiMoon, HiOutlineMoon);
+  const SwitchIcon = useColorModeValue(HiOutlineMoon, HiMoon);
 
   return (
     <Flex
