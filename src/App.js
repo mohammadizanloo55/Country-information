@@ -4,13 +4,13 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 const Header = loadable(() => import("./Components/Header/Header"));
 
-const config = {
+const ThemeConfig = {
   initialColorMode: "system",
   useSystemColorMode: false,
 };
 
 const App = () => {
-  const theme = extendTheme({ config });
+  const theme = extendTheme({ ThemeConfig });
   return (
     <ChakraProvider theme={theme}>
       <Router>
