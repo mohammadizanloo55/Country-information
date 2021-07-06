@@ -8,8 +8,11 @@ const BaseUrlChecker = (BaseUrl) => {
   }
   return BaseUrl;
 };
+const UrlMixer = (Url, Path) => {
+  return new URL(Path, Url).href;
+};
 const config = axios.create({
-  baseURL: BaseUrlChecker(process.env.REACT_APP_API),
+  baseURL: UrlMixer(BaseUrlChecker(process.env.REACT_APP_API), "/api/v1"),
   timeout: 10000,
 });
 export default config;
