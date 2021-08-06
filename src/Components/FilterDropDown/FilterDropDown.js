@@ -14,7 +14,7 @@ const FilterDropDown = ({ Options, Title, OnChange }) => (
       {Title}
     </MenuButton>
     <MenuList minWidth="240px">
-      <MenuOptionGroup onChange={(e) => OnChange(e)} type="radio">
+      <MenuOptionGroup onChange={OnChange} type="radio">
         {Options.map((Value) => (
           <MenuItemOption key={Value} value={Value}>
             {Value}
