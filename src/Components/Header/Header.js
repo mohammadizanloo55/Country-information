@@ -5,6 +5,7 @@ import {
   useColorMode,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { memo } from "react";
 import { HiMoon, HiOutlineMoon } from "react-icons/hi";
 
 const Header = () => {
@@ -59,4 +60,4 @@ const Header = () => {
     </Flex>
   );
 };
-export default Header;
+export default memo(Header);
