@@ -3,7 +3,11 @@ import { memo } from "react";
 import { HiSearch } from "react-icons/hi";
 
 const SearchInput = ({ InputType, Placeholder, onChange }) => (
-  <InputGroup>
+  <InputGroup
+    minWidth={{
+      md: "500px",
+    }}
+  >
     <InputLeftElement
       pointerEvents="none"
       children={
