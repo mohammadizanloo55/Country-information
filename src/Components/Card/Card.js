@@ -5,9 +5,16 @@ import { Link } from "react-router-dom";
 
 const Card = forwardRef((props, ref) => (
   <Link ref={ref} to={`/${props.Title}`} style={{ width: "100%" }}>
-    <Box w="100%" h="100%" boxShadow="lg" borderRadius="xl" overflow="hidden">
+    <Flex
+      flexDirection="column"
+      w="100%"
+      h="100%"
+      boxShadow="lg"
+      borderRadius="xl"
+      overflow="hidden"
+    >
       <Img
-        style={{ width: "100%" }}
+        style={{ height: "200px", objectFit: "cover" }}
         src={props.ImageUrl}
         alt={props.ImageAlt}
       />
@@ -28,7 +35,7 @@ const Card = forwardRef((props, ref) => (
           </Flex>
         ))}
       </Box>
-    </Box>
+    </Flex>
   </Link>
 ));
 
