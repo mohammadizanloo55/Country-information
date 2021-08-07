@@ -1,4 +1,4 @@
-import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { ChakraProvider, Container, extendTheme } from "@chakra-ui/react";
 import loadable from "@loadable/component";
 import { memo, useMemo } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -28,14 +28,21 @@ const App = () => {
   const theme = extendTheme(ThemeConfig);
   return (
     <ChakraProvider theme={theme}>
-      <Router>
-        <Header />
-        <Switch>
-          <Route path="/" exact>
-            <MainPage />
-          </Route>
-        </Switch>
-      </Router>
+      <Header />
+      <Container
+        maxW={{
+          lg: "1000px",
+          xl: "1800px",
+        }}
+      >
+        <Router>
+          <Switch>
+            <Route path="/" exact>
+              <MainPage />
+            </Route>
+          </Switch>
+        </Router>
+      </Container>
     </ChakraProvider>
   );
 };
