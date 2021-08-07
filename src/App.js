@@ -1,6 +1,6 @@
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import loadable from "@loadable/component";
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 const Header = loadable(() => import("./Components/Header/Header"));
@@ -39,4 +39,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default memo(App);
