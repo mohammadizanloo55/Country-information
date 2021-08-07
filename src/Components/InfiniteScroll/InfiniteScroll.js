@@ -93,10 +93,11 @@ const InfiniteScroll = () => {
           base: "repeat(1, 1fr)",
           sm: "repeat(2, 1fr)",
           md: "repeat(3, 1fr)",
-          lg: "repeat(4, 1fr)",
+          xl: "repeat(4, 1fr)",
         }}
         px={{
           base: "5",
+          sm: "2",
         }}
         mt="8"
         alignContent="stretch"
