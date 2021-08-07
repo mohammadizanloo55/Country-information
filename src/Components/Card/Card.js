@@ -14,7 +14,7 @@ const Card = forwardRef((props, ref) => (
       overflow="hidden"
     >
       <Img
-        style={{ height: "200px", objectFit: "cover" }}
+        style={{ height: "250px", objectFit: "cover" }}
         src={props.ImageUrl}
         alt={props.ImageAlt}
       />
