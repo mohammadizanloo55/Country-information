@@ -15,6 +15,7 @@ const App = () => {
         global: {
           "html, body, #root": {
             height: "100% !important",
+            overflowX: "hidden",
           },
           "input,textarea,button,select,a": {
             WebkitTapHighlightColor: "transparent",
