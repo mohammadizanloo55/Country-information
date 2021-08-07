@@ -66,8 +66,10 @@ const MainPage = () => {
   return (
     <CountriesContext.Provider value={ContextValue}>
       <Grid
+        justifyContent="space-between"
         templateColumns={{
           base: "repeat(1,auto)",
+          sm: "repeat(2,auto)",
         }}
         gap="5"
         m="3"
