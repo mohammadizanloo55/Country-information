@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 const Header = loadable(() => import("./Components/Header/Header"));
 const MainPage = loadable(() => import("./Router/MainPage/MainPage"));
-
+const DetailPage = loadable(() => import("./Router/DetailPage/DetailPage"));
 const App = () => {
   const ThemeConfig = useMemo(
     () => ({
@@ -41,6 +41,9 @@ const App = () => {
           <Switch>
             <Route path="/" exact>
               <MainPage />
+            </Route>
+            <Route path="/:CountryName" exact>
+              <DetailPage />
             </Route>
           </Switch>
         </Router>
