@@ -1,4 +1,5 @@
 import loadable from "@loadable/component";
+import localforage from "localforage";
 import { memo, useContext } from "react";
 import { useDebouncedCallback } from "use-debounce";
 
@@ -15,7 +16,30 @@ const SearchInputComponent = () => {
 
   const SearchInputChanged = useDebouncedCallback(async (e) => {
     const InputValue = e.target.value;
+    const Item = await localforage.getItem("Countries");
 
+    const ExpireTime = await localforage.getItem("ExpireTime");
+
+    if (
+      Item &&
+      Item.Searches[InputValue] &&
+      Item.Searches[InputValue].Data &&
+      Item.Searches[InputValue].Data.length > 0 &&
+      ExpireTime &&
+      ExpireTime > Date.now()
+    ) {
+      return CountriesDispatch({
+        type: "SetNewData",
+        payload: {
+          ModeKey: "Searches",
+          NewData: {
+            ...Item.Searches[InputValue],
+            data: Item.Searches[InputValue].Data,
+          },
+          Page: Item.Searches[InputValue].Page,
+        },
+      });
+    }
     if (InputValue.length > 0) {
       if (CountriesState.Searches[InputValue]) {
         return CountriesDispatch({
@@ -51,6 +75,7 @@ const SearchInputComponent = () => {
     return CountriesDispatch({
       type: "SetNewData",
       payload: {
+        FakeUpdate: true,
         NewData: {
           ...CountriesState.Default,
           data: CountriesState.Default.Data,
