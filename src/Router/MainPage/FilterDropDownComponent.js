@@ -1,4 +1,5 @@
 import loadable from "@loadable/component";
+import localforage from "localforage";
 import { memo, useContext } from "react";
 import { useDebouncedCallback } from "use-debounce";
 
@@ -14,9 +15,35 @@ const FilterDropDownComponent = () => {
     useContext(CountriesContext);
 
   const FilterDropDownChanged = useDebouncedCallback(async (Region) => {
+    const Item = await localforage.getItem("Countries");
+
+    const ExpireTime = await localforage.getItem("ExpireTime");
+
+    if (
+      Item &&
+      Item.Regions[Region] &&
+      Item.Regions[Region].Data.length > 0 &&
+      ExpireTime &&
+      ExpireTime > Date.now()
+    ) {
+      return CountriesDispatch({
+        type: "SetNewData",
+        payload: {
+          ModeKey: "Regions",
+          NewData: {
+            ...Item.Regions[Region],
+            data: Item.Regions[Region].Data,
+          },
+          Page: Item.Regions[Region].Page,
+          QueryKey: Region,
+        },
+      });
+    }
+
     if (Region === "All") {
       return CountriesDispatch({
         type: "SetNewData",
+        FakeUpdate: true,
         payload: {
           NewData: {
             ...CountriesState.Default,
