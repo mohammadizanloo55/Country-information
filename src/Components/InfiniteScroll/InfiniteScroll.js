@@ -79,10 +79,18 @@ const InfiniteScroll = () => {
   );
 
   useEffect(() => {
-    if (inView && !IsDataEnded && !isLoading) {
+    if (inView && !CountriesState.FakeUpdate && !IsDataEnded && !isLoading) {
       LoadMore(Countries.Page, CustomParams);
     }
-  }, [inView, LoadMore, isLoading, IsDataEnded, Countries.Page, CustomParams]);
+  }, [
+    inView,
+    LoadMore,
+    CountriesState,
+    isLoading,
+    IsDataEnded,
+    Countries.Page,
+    CustomParams,
+  ]);
 
   return (
     <>
