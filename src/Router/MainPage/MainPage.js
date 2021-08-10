@@ -1,5 +1,6 @@
 import { Grid } from "@chakra-ui/react";
 import loadable from "@loadable/component";
+import localforage from "localforage";
 import { memo, useEffect, useMemo, useReducer } from "react";
 
 import CountriesContext from "../../Contexts/Countries";
@@ -35,9 +36,73 @@ const MainPage = () => {
     [CountriesState]
   );
 
+  useEffect(
+    () =>
+      localforage.config({
+        name: "Countries",
+        driver: localforage.INDEXEDDB,
+        storeName: "Countries",
+        description: "this Db has all prev states",
+      }),
+    []
+  );
+
+  useEffect(() => {
+    const SetDataInDB = async () => {
+      const { Mode, QueryKey } = CountriesState;
+
+      const IsDefault = Mode === "Default";
+
+      const { Data, Page: StatePage } = IsDefault
+        ? CountriesState[Mode]
+        : CountriesState[Mode][QueryKey];
+
+      const Item = await localforage.getItem("Countries");
+
+      if (Data.length) {
+        const DB = IsDefault ? Item?.[Mode] : Item?.[Mode]?.[QueryKey];
+
+        if (!DB || StatePage > DB?.Page) {
+          await localforage
+            .setItem("Countries", CountriesState)
+            .catch((err) => console.error(err));
+        }
+      }
+    };
+
+    SetDataInDB();
+  }, [CountriesState]);
+
   useEffect(() => {
     const LoadData = async () => {
+      const Item = await localforage.getItem("Countries");
+
+      const ExpireTime = await localforage.getItem("ExpireTime");
+
+      if (
+        Item &&
+        Item.Default.Data.length > 0 &&
+        ExpireTime &&
+        ExpireTime > Date.now()
+      ) {
+        return CountriesDispatch({
+          type: "SetNewData",
+          payload: {
+            ModeKey: "Default",
+            NewData: {
+              ...Item.Default,
+              data: Item.Default.Data,
+            },
+            Page: Item.Default.Page,
+            IsDefault: true,
+          },
+        });
+      }
+
+      await localforage.setItem("ExpireTime", Date.now() + 604_800_000);
+
       const Countries = await FetchCountries(LimitData);
+
       CountriesDispatch({
         type: "SetNewData",
         payload: {
@@ -46,6 +111,8 @@ const MainPage = () => {
           IsDefault: true,
         },
       });
+
+      return Countries;
     };
     LoadData();
   }, [LimitData]);
