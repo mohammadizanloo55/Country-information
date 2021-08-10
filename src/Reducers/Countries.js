@@ -1,13 +1,17 @@
 const SetNewData = (State, Action) => {
   const PrevState = { ...State };
 
-  const { IsDefault, NewData, ModeKey, QueryKey } = Action.payload;
-
+  const { IsDefault, FakeUpdate, NewData, Page, ModeKey, QueryKey } =
+    Action.payload;
+  if (FakeUpdate) {
+    PrevState.FakeUpdate = FakeUpdate;
+  }
   PrevState.Mode = ModeKey;
 
   if (IsDefault) {
     PrevState[ModeKey] = {
       ...PrevState[ModeKey],
+      ...(Page ? { Page } : {}),
       Data: NewData.data,
       PageLength: NewData.PageLength,
     };
