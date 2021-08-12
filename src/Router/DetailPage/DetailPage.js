@@ -1,4 +1,12 @@
-import { Button, Flex, Grid, Heading, Image, Text } from "@chakra-ui/react";
+import {
+  Button,
+  Center,
+  Flex,
+  Grid,
+  Heading,
+  Image,
+  Text,
+} from "@chakra-ui/react";
 import loadable from "@loadable/component";
 import { memo, useEffect, useMemo, useState } from "react";
 import { HiArrowNarrowLeft } from "react-icons/hi";
@@ -56,7 +64,11 @@ const DetailPage = () => {
   }, [SetCountryState, CountryName]);
 
   if (!NormalData) {
-    return <Loading />;
+    return (
+      <Center minHeight="100vh">
+        <Loading />
+      </Center>
+    );
   }
 
   return (
@@ -74,36 +86,50 @@ const DetailPage = () => {
           Back
         </Button>
       </Link>
+      <Grid
+        templateColumns={{
+          base: "repeat(1,auto)",
+          lg: "repeat(2,auto)",
+        }}
+        gap="32"
+      >
+        <Image mt="20" src={`${CountryState.flag}`} />
+        <Grid>
+          <Heading as="h1" mt="8" mb="4" fontSize="2xl">
+            {CountryName}
+          </Heading>
 
-      <Image mt="20" src={`${CountryState.flag}`} />
+          {NormalData.map(({ Data, Title }) => (
+            <Flex
+              sx={{ margin: "10px 0em" }}
+              key={Data}
+              my="1"
+              alignItems="baseline"
+            >
+              <Text as="strong" fontSize="xl">
+                {Title}:
+              </Text>
 
-      <Heading as="h1" mt="8" mb="4" fontSize="2xl">
-        {CountryName}
-      </Heading>
-      {NormalData.map(({ Data, Title }) => (
-        <Flex key={Data} my="1" alignItems="baseline">
-          <Text as="strong" fontSize="xl">
-            {Title}:
-          </Text>
-
-          <Text as="p" ml="2" fontSize="lg">
-            {Data}
-          </Text>
-        </Flex>
-      ))}
-
-      <Flex my="1" flexDirection="column">
-        <Text as="strong" fontSize="xl">
-          Border Countries :
-        </Text>
-        <Grid templateColumns="repeat(3,1fr)">
-          {CountryState.borders.map((Name) => (
-            <Button variant="outline" key={Name} m="2">
-              {Name}
-            </Button>
+              <Text as="p" ml="2" fontSize="lg">
+                {Data}
+              </Text>
+            </Flex>
           ))}
+
+          <Flex my="1" flexDirection="column">
+            <Text mt="3" as="strong" fontSize="xl">
+              Border Countries :
+            </Text>
+            <Grid templateColumns="repeat(3,1fr)">
+              {CountryState.borders.map((Name) => (
+                <Button variant="outline" key={Name} m="2">
+                  {Name}
+                </Button>
+              ))}
+            </Grid>
+          </Flex>
         </Grid>
-      </Flex>
+      </Grid>
     </Grid>
   );
 };
