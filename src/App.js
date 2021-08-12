@@ -31,7 +31,6 @@ const App = () => {
       <Header />
       <Container
         px="0"
-        height="100%"
         maxW={{
           lg: "1000px",
           xl: "1800px",
