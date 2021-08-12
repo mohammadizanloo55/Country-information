@@ -1,4 +1,4 @@
-import { Grid } from "@chakra-ui/react";
+import { Center, Grid } from "@chakra-ui/react";
 import loadable from "@loadable/component";
 import localforage from "localforage";
 import { memo, useEffect, useMemo, useReducer } from "react";
@@ -127,7 +127,11 @@ const MainPage = () => {
   );
 
   if (!IsCountriesLoaded) {
-    return <Loading />;
+    return (
+      <Center minHeight="100vh">
+        <Loading />
+      </Center>
+    );
   }
 
   return (
