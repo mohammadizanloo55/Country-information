@@ -2,15 +2,12 @@
 
 ## Design Images
 
-<div
- style="display:flex; align-items:center; flex-direction:column;">
-    <img src="./asset/Ui.jpg" width="500">
-    <a 
-    style="margin: 2rem 0;" 
-    href="http://country-information.vercel.app/"> 
-    See Website 
-    </a>
-</div>
+<br>
+<img src="./asset/Ui.jpg"  width="500">
+
+[Preview](https://country-information.vercel.app/)
+
+<br>
 
 ## Available Scripts
 
